@@ -1,0 +1,9 @@
+Nav:
+    home
+    about
+    contact
+    blog
+    dashboard
+    login
+    logout
+    register

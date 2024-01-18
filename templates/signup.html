@@ -1,0 +1,86 @@
+﻿{% include 'nav.html' %}
+  {% load static %}
+  
+  <!-- Content
+  ============================================= -->
+  <div id="content">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-9 col-lg-7 col-xl-5 mx-auto">
+          <div class="bg-white shadow-md rounded p-3 pt-sm-4 pb-sm-5 px-sm-5">
+            <h3 class="fw-400 text-center mb-4">Sign Up</h3>
+            <hr class="mx-n3 mx-sm-n5">
+            {% if messages %}
+              {% for message in messages %}
+                {% if message.tags == 'error' %}
+                  <p class="lead text-center" style="color: firebrick;">{{message}}</p>
+                {% else %}
+                  <p class="lead text-center" style="color: #2dbe60;">{{message}}</p>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p class="lead text-center">Your information is safe with us!</p>
+            {% endif %}
+            <form id="signupForm" method="POST">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="fullName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="fullName" required name="fname" placeholder="Enter Your First Name">
+              </div>
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="fullName" required name="lname" placeholder="Enter Your Last Name">
+              </div>
+              <div class="mb-3">
+                <label for="emailAddress" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="emailAddress" required name="email"" placeholder="Enter Your Email">
+              </div>
+              <div class="mb-3">
+                <label for="loginPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="loginPassword" required name="password" placeholder="Enter Password">
+              </div>
+              <div class="mb-3">
+                <label for="loginPassword" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" required name="confirm_password" placeholder="Enter Password">
+              </div>
+              <p id="validate" style="color: firebrick; display: none;">Passwords do not match</p>
+              <div class="d-grid mt-4 mb-3"><button class="btn btn-primary" type="submit">Sign Up</button></div>
+            </form>
+            <p class="text-3 text-muted text-center mb-0">Already have an account? <a class="btn-link" href="{% url 'login' %}">Log In</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Content end --> 
+
+  <script>
+    const signupForm = document.getElementById('signupForm');
+    signupForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const password = document.getElementById('loginPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        if (password !== confirmPassword) {
+            document.getElementById('validate').style.display = 'block';
+        } else {
+            signupForm.submit();
+        }
+    });
+</script>
+
+  
+  <!-- Footer
+  ============================================= -->
+  {% include 'footer.html' %}
+  <!-- Footer end --> 
+</div>
+<!-- Document Wrapper end --> 
+
+<!-- Back to Top
+============================================= --> 
+<a id="back-to-top" data-bs-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a> 
+
+
+{% include 'scripts.html' %}  
+</body>
+</html>

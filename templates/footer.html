@@ -1,0 +1,78 @@
+{% load static %}
+
+ <!-- Special Offer
+    ============================================= -->
+    {% if status == False %}
+    <section class="hero-wrap py-5">
+        <div class="hero-mask opacity-8 bg-dark"></div>
+        <div class="hero-bg" style="background-image:url('images/bg/image-2.jpg');"></div>
+        <div class="hero-content">
+          <div class="container d-md-flex text-center text-md-start align-items-center justify-content-center">
+            <h2 class="text-6 fw-400 text-white mb-3 mb-md-0">Sign up today and get your first transaction fee free!</h2>
+            <a href="{% url 'register' %}" class="btn btn-outline-light text-nowrap ms-0 ms-md-4">Sign up Now</a> </div>
+        </div>
+      </section>
+      {% endif %}
+      <!-- Special Offer end --> 
+
+<footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg d-lg-flex align-items-center">
+          <ul class="nav justify-content-center justify-content-lg-start text-3">
+            <li class="nav-item"> <a class="nav-link active" href="{% url 'about-us' %}">About Us</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'contact-us' %}">Contact</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item"> <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+            {% endif %}
+            <li class="nav-item"> <a class="nav-link" href="#">Send Money</a></li>
+          </ul>
+        </div>
+        <div class="col-lg d-lg-flex justify-content-lg-end mt-3 mt-lg-0">
+          <ul class="social-icons justify-content-center">
+            <li class="social-icons-whatsapp"><a data-bs-toggle="tooltip" href="{{ site_information.whatsapp_link }}" target="_blank" title="Whatsapp"><i class="fab fa-whatsapp"></i></a></li>
+            <li class="social-icons-facebook"><a data-bs-toggle="tooltip" href="{{ site_information.facebook_link }}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+            <li class="social-icons-twitter"><a data-bs-toggle="tooltip" href="{{ site_information.twitter_link }}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+            <li class="social-icons-instagram"><a data-bs-toggle="tooltip" href="{{ site_information.instagram_link }}" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-copyright pt-3 pt-lg-2 mt-2">
+        <div class="row">
+          <div class="col-lg">
+            <p class="text-center text-lg-start mb-2 mb-lg-0">Copyright &copy; {% now 'Y' %} <a href="#">SUCCYLOGLOBALFX</a>. All Rights Reserved.</p>
+          </div>
+          <div class="col-lg d-lg-flex align-items-center justify-content-lg-end">
+            <ul class="nav justify-content-center">
+              <li class="nav-item"> <a class="nav-link active" href="{% url 'about-us' %}">Security</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'about-us' %}">Terms</a></li>
+              <li class="nav-item"> <a class="nav-link" href="{% url 'about-us' %}">Privacy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Styles Switcher -->
+<div id="styles-switcher" class="left">
+  <h2 class="text-3">Color Switcher</h2>
+  <hr>
+  <ul>
+    <li class="blue" data-bs-toggle="tooltip" title="Blue" data-path="css/color-blue.css"></li>
+	<li class="indigo" data-bs-toggle="tooltip" title="Indigo" data-path="css/color-indigo.css"></li>
+    <li class="purple" data-bs-toggle="tooltip" title="Purple" data-path="css/color-purple.css"></li>
+	<li class="pink" data-bs-toggle="tooltip" title="Pink" data-path="css/color-pink.css"></li>
+	<li class="red" data-bs-toggle="tooltip" title="Red" data-path="css/color-red.css"></li>
+    <li class="orange" data-bs-toggle="tooltip" title="Orange" data-path="css/color-orange.css"></li>
+	<li class="yellow" data-bs-toggle="tooltip" title="Yellow" data-path="css/color-yellow.css"></li>
+	<li class="teal" data-bs-toggle="tooltip" title="Teal" data-path="css/color-teal.css"></li>
+    <li class="cyan" data-bs-toggle="tooltip" title="Cyan" data-path="css/color-cyan.css"></li>
+    <li class="brown" data-bs-toggle="tooltip" title="Brown" data-path="css/color-brown.css"></li>
+  </ul>
+  <button class="btn btn-dark btn-sm border-0 fw-400 rounded-0 shadow-none" data-bs-toggle="tooltip" title="Green" id="reset-color">Reset Default</button>
+  <button class="btn switcher-toggle"><i class="fas fa-cog"></i></button>
+</div>
+<!-- Styles Switcher End --> 

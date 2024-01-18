@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+SITE_ID = 1
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,11 +35,19 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Home',
+    'Authentication',
+    'Blog',
+    'Receipient',
+    'Dashboard',
+    'Globals',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +65,7 @@ ROOT_URLCONF = 'TransferPrj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -62,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Globals.context_processors.site_information',
             ],
         },
     },
@@ -121,3 +133,27 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,  'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+
+EMAIL_BACKEND = 'utils.backends.email_backend.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'succylofx@gmail.com'
+EMAIL_HOST_PASSWORD = 'ikkp sjne olce rwdi'
+
+# PLATFORM_EMAIL_RECEIVER = 'succylofx@gmail.com'
+PLATFORM_EMAIL_RECEIVER = 'succylofx@proton.me'
+
+#proton M
+# succylofx@proton.me
+# bKn+w(ZS.Yq2#6r
+
+# Google
+# succylofx@gmail.com
+# ikkp sjne olce rwdi

@@ -1,0 +1,224 @@
+﻿{% include 'nav.html' %}
+  {% load static %} 
+  {% load humanize %}
+  
+  <!-- Content
+  ============================================= -->
+  <div id="content" class="py-4">
+    <div class="container"> 
+      
+      <!-- Steps Progress bar -->
+      <div class="row mt-4 mb-5">
+        <div class="col-lg-11 mx-auto">
+          <div class="row widget-steps">
+            <div class="col-4 step complete">
+              <div class="step-name">Details</div>
+              <div class="progress">
+                <div class="progress-bar"></div>
+              </div>
+              <a href="#" class="step-dot"></a> </div>
+            <div class="col-4 step active">
+              <div class="step-name">Confirm</div>
+              <div class="progress">
+                <div class="progress-bar"></div>
+              </div>
+              <a href="#" class="step-dot"></a> </div>
+            <div class="col-4 step disabled">
+              <div class="step-name">Success</div>
+              <div class="progress">
+                <div class="progress-bar"></div>
+              </div>
+              <a href="#" class="step-dot"></a> </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="fw-400 text-center mt-3 mb-4">Confirm Transaction</h2>
+      <div class="row" id="display_confirm_info">
+        <div class="col-md-9 col-lg-7 col-xl-6 mx-auto">
+          <div class="bg-white shadow-sm rounded p-3 pt-sm-4 pb-sm-5 px-sm-5 mb-4">
+            <h3 class="text-5 fw-400 mb-3 mb-sm-4">Review Details</h3>
+            <hr class="mx-n3 mx-sm-n5 mb-4">
+            <!-- Deposit Money Confirm
+            ============================================= -->
+            
+              <p class="form-label">Receipient <span style="float: right;"><a href="#" id="edit_receipient">Edit Details</a> | <a href="{% url 'select-recipient' transaction.transaction_id %}">Change Receipient</a></span> </p>
+              
+              <div class="alert alert-info shadow-sm py-3 px-4 px-sm-2 mb-5">
+                <div class="row gx-3 align-items-center">
+                  <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Name:</p>
+                  <p class="col-sm-7 text-3">{{transaction.receipient.account_name}}</p>
+                </div>
+                {% if transaction.to_currency == 'Nigerian naira' %}
+                <div class="row gx-3 align-items-center">
+                  <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Number:</p>
+                  <p class="col-sm-7 text-3">{{transaction.receipient.account_number}}</p>
+                </div>
+                {% else %}
+
+                  {% if transaction.receipient.card_number %}
+                    <div class="row gx-3 align-items-center">
+                      <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Card Number:</p>
+                      <p class="col-sm-7 text-3">{{transaction.receipient.card_number}}</p>
+                    </div>
+                  {% endif %}
+
+                  {% if transaction.receipient.phone_number %}
+                    <div class="row gx-3 align-items-center">
+                      <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Phone Number:</p>
+                      <p class="col-sm-7 text-3">{{transaction.receipient.phone_number}}</p>
+                    </div>
+                  {% endif %}
+
+                {% endif %}
+                <div class="row gx-3 align-items-center">
+                  <p class="col-sm-5 opacity-7 text-sm-end mb-0">Bank Name:</p>
+                  <p class="col-sm-7 text-3 mb-0">{{transaction.receipient.bank_name}}</p>
+                </div>
+              </div>
+
+              <form id="editReceipient" method="POST" style="display: none;">
+                {% csrf_token %}
+                <hr class="mx-n3 mx-sm-n5 mb-4">
+                <h3 class="text-5 fw-400 mb-4">Edit Reciepient Details <a href="#" style="float: right;" id="cancel_receipient_edit">Cancle</a></h3>
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="fullName" class="form-label">Account Name</label>
+                  <input type="text" class="form-control" id="fullName" value="{{transaction.receipient.account_name}}" name="account_name" placeholder="Enter Account Name">
+                </div>
+                <div class="mb-3">
+                  <label for="fullName" class="form-label">Bank Name</label>
+                  <input type="text" class="form-control" id="fullName" value="{{transaction.receipient.bank_name}}" name="bank_name" placeholder="Enter Bank Name">
+                </div>
+                {% if transaction.to_currency == 'Nigerian naira' %}
+                  <div class="mb-3">
+                    <label for="emailAddress" class="form-label">Account Number</label>
+                    <input type="text" class="form-control" id="emailAddress" required name="account_number" value="{{transaction.receipient.account_number}}" placeholder="Enter Account Number">
+                  </div>
+                {% endif %}
+                {% if transaction.to_currency == 'Russian rouble' %}
+                  <div class="mb-3">
+                    <label for="emailAddress" class="form-label">Card Number</label>
+                    <input type="text" class="form-control" id="cardNumber" name="card_number" value="{{transaction.receipient.card_number}}" placeholder="Enter Card Number (optional)">
+                  </div>
+                  <div class="mb-3">
+                    <label for="emailAddress" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phone_number" value="{{transaction.receipient.phone_number}}" placeholder="Enter Phone Number (optional)">
+                  </div>
+                {% endif %}
+                <p id="error-msg" style="color: firebrick;"></p>
+                <div class="d-grid mt-4 mb-3"><button class="btn btn-primary" type="submit">Save</button></div>
+              </form>
+
+              <hr class="mx-n3 mx-sm-n5 mb-4">
+              <h3 class="text-5 fw-400 mb-4">Amount Details <a href="{% url 'edit-transaction-amount' transaction.transaction_id %}" style="float: right; font-size: small;">Edit Amount</a></h3>
+              <hr class="mx-n3 mx-sm-n5 mb-4">
+              <p class="mb-1">Payment Amount <span class="text-3 float-end">{{transaction.amount|intcomma}} {% if transaction.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
+              <p class="mb-1">Receipient Receives <span class="text-3 float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
+              <hr>
+              <p class="text-4 fw-500">Total<span class="float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
+              <a href="#"><div class="d-grid"><button id="confirm_btn" class="btn btn-primary">Confirm</button></div></a>
+            
+            <!-- Deposit Money Confirm end --> 
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row" id="display-account" style="display: none;">
+        <div class="col-md-9 col-lg-7 col-xl-6 mx-auto">
+          <div class="bg-white shadow-sm rounded p-3 pt-sm-4 pb-sm-5 px-sm-5 mb-4">
+            <h3 class="text-5 fw-400 mb-3 mb-sm-4">Make Payment</h3>
+            <hr class="mx-n3 mx-sm-n5 mb-4">
+            <!-- Deposit Money Confirm
+            ============================================= -->
+            
+              <p class="form-label" style="color: #2dbe60;">Pay into the following account. After payment, click the button below to signal that you have paid </p>
+              
+              <div class="alert alert-info shadow-sm py-3 px-4 px-sm-2 mb-5">
+                <div class="row gx-3 align-items-center">
+                  <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Name:</p>
+                  <p class="col-sm-7 text-3">{{transaction.receipient.account_name}}</p>
+                </div>
+                {% if transaction.to_currency == 'Nigerian naira' %}
+                <div class="row gx-3 align-items-center">
+                  <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Number:</p>
+                  <p class="col-sm-7 text-3">{{transaction.receipient.account_number}}</p>
+                </div>
+                {% else %}
+
+                  {% if transaction.receipient.card_number %}
+                    <div class="row gx-3 align-items-center">
+                      <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Card Number:</p>
+                      <p class="col-sm-7 text-3">{{transaction.receipient.card_number}}</p>
+                    </div>
+                  {% endif %}
+
+                  {% if transaction.receipient.phone_number %}
+                    <div class="row gx-3 align-items-center">
+                      <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Phone Number:</p>
+                      <p class="col-sm-7 text-3">{{transaction.receipient.phone_number}}</p>
+                    </div>
+                  {% endif %}
+
+                {% endif %}
+                <div class="row gx-3 align-items-center">
+                  <p class="col-sm-5 opacity-7 text-sm-end mb-0">Bank Name:</p>
+                  <p class="col-sm-7 text-3 mb-0">{{transaction.receipient.bank_name}}</p>
+                </div>
+              </div>
+
+              <hr class="mx-n3 mx-sm-n5 mb-4">
+              <h3 class="text-5 fw-400 mb-4">Amount Details</h3>
+              <hr class="mx-n3 mx-sm-n5 mb-4">
+              <p class="mb-1">Payment Amount <span class="text-3 float-end">{{transaction.amount|intcomma}} {% if transaction.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
+              <p class="mb-1">Receipient Receives <span class="text-3 float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
+              <hr>
+              <p class="text-4 fw-500">Total<span class="float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
+              <div class="d-grid"><button onclick="window.location.href = '{% url 'mark-transaction-successful' transaction.transaction_id %}' " id="confirm_btn" class="btn btn-primary">I have paid</button></div>
+            
+            <!-- Deposit Money Confirm end --> 
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Content end --> 
+  
+  <!-- Footer
+  ============================================= -->
+  {% include 'footer.html' %}
+  <!-- Footer end --> 
+  
+</div>
+<!-- Document Wrapper end --> 
+
+<!-- Back to Top
+============================================= --> 
+<a id="back-to-top" data-bs-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a> 
+
+
+<!-- Script --> 
+{% include 'scripts.html' %}  
+
+<script>
+  document.getElementById('edit_receipient').addEventListener('click', function(event){
+    event.preventDefault();
+    document.getElementById('editReceipient').style.display = 'block';
+    document.getElementById('confirm_btn').style.display = 'none';
+  })
+
+  document.getElementById('cancel_receipient_edit').addEventListener('click', function(event){
+    event.preventDefault();
+    document.getElementById('editReceipient').style.display = 'none';
+    document.getElementById('confirm_btn').style.display = 'block';
+  })
+
+  document.getElementById('confirm_btn').addEventListener('click', function(){
+    document.getElementById('display_confirm_info').style.display = 'none';
+    document.getElementById('display-account').style.display = 'block';
+
+  });
+</script>
+</body>
+</html>

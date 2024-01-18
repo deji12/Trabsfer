@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+{% load static %}
+<link href="{% static 'favicon.png' %}" rel="icon">
+<title>SUCCYLOGLOBALFX - Secure and Suitable Currency Exchange Platform</title>
+<meta name="description" content="This professional design html template is for build a Money Transfer and online payments website.">
+<meta name="author" content="harnishdesign.net">
+
+<!-- Web Fonts
+============================================= -->
+<link rel="stylesheet" href="../../../css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+<!-- Stylesheet
+============================================= -->
+{% include 'styles.html' %}
+<!-- Colors Css -->
+<link id="color-switcher" type="text/css" rel="stylesheet" href="#">
+</head>
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+  <div data-loader="dual-ring"></div>
+</div>
+<!-- Preloader End --> 
+
+<!-- Document Wrapper   
+============================================= -->
+<div id="main-wrapper"> 
+  
+  <!-- Header
+  ============================================= -->
+  <header id="header">
+    <div class="container">
+      <div class="header-row">
+        <div class="header-column justify-content-start"> 
+          <!-- Logo
+          ============================= -->
+          <div class="logo me-3"> <a class="d-flex" href="index.html" title="SUCCYLOGLOBALFX - HTML Template"><img style="max-width: 350px;" src="{% static 'logo.png' %}" alt="SUCCYLOGLOBALFX"></a> </div>
+          <!-- Logo end --> 
+          <!-- Collapse Button
+          ============================== -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#header-nav"> <span></span> <span></span> <span></span> </button>
+          <!-- Collapse Button end --> 
+          
+          <!-- Primary Navigation
+          ============================== -->
+          <nav class="primary-menu navbar navbar-expand-lg">
+            <div id="header-nav" class="collapse navbar-collapse">
+              <ul class="navbar-nav me-auto">
+                <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about-us' %}">About Us</a></li>
+                <li><a href="{% url 'contact-us' %}">Contact</a></li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+                {% if request.user.is_authenticated %}
+                  <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                  <li><a href="{% url 'transactions' %}">Transactions</a></li>
+                {% endif %}
+                <li><a href="#">Send Money</a></li>
+                
+              </ul>
+            </div>
+          </nav>
+          <!-- Primary Navigation end --> 
+        </div>
+        <div class="header-column justify-content-end"> 
+          <!-- Login & Signup Link
+          ============================== -->
+          <nav class="login-signup navbar navbar-expand">
+            <ul class="navbar-nav">
+              {% if not request.user.is_authenticated %}
+              <li><a href="{% url 'login' %}">Login</a> </li>
+              <li class="align-items-center h-auto ms-sm-3"><a class="btn btn-primary" href="{% url 'register' %}">Sign Up</a></li>
+              {% endif %}
+            </ul>
+          </nav>
+          <!-- Login & Signup Link end --> 
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- Header End --> 
