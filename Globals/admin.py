@@ -17,6 +17,6 @@ class AccountAdmin(admin.ModelAdmin):
 admin.site.register(Account, AccountAdmin)
 
 class SiteInformationAdmin(admin.ModelAdmin):
-    list_display = ('site_name', 'site_title', 'facebook_link', 'twitter_link', 'whatsapp_link', 'instagram_link', 'contact_email', 'contact_number')
+    list_display = ('site_name', 'nigerian_bank_name', 'nigerian_bank_account_holder_name', 'nigerian_bank_account_number', 'russian_bank_name', 'russian_bank_account_holder_name', 'russian_card_number', 'russian_phone_number')
 
 admin.site.register(SiteInformation, SiteInformationAdmin)

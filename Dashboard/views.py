@@ -4,7 +4,6 @@ from Globals.models import Rate, Transaction
 from Receipient.models import UserRecipient
 from django.conf import settings
 from django.core.mail import EmailMessage
-from django.http import HttpResponse
 
 @login_required
 def Home(request):
@@ -243,8 +242,18 @@ def SuccessPayment(request, transaction_id):
 @login_required
 def Transactions(request):
 
-    context = {
-        
+    get_transactions = Transaction.objects.filter(user=request.user)
+
+    context = { 
+        "transactions": get_transactions
     }
 
-    return render(request, "dashboard.html", context)
+    return render(request, "transactions.html", context)
+
+@login_required
+def DeleteTransaction(request, transaction_id):
+
+    get_transaction = Transaction.objects.get(transaction_id=transaction_id)
+    get_transaction.delete()
+
+    return redirect('transactions')

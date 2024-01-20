@@ -135,36 +135,46 @@
               <p class="form-label" style="color: #2dbe60;">Pay into the following account. After payment, click the button below to signal that you have paid </p>
               
               <div class="alert alert-info shadow-sm py-3 px-4 px-sm-2 mb-5">
-                <div class="row gx-3 align-items-center">
-                  <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Name:</p>
-                  <p class="col-sm-7 text-3">{{transaction.receipient.account_name}}</p>
-                </div>
+            
                 {% if transaction.to_currency == 'Nigerian naira' %}
-                <div class="row gx-3 align-items-center">
-                  <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Number:</p>
-                  <p class="col-sm-7 text-3">{{transaction.receipient.account_number}}</p>
-                </div>
-                {% else %}
+                  <div class="row gx-3 align-items-center">
+                    <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Name:</p>
+                    <p class="col-sm-7 text-3">{{site_information.nigerian_bank_account_holder_name}}</p>
+                  </div>
+                  <div class="row gx-3 align-items-center">
+                    <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Number:</p>
+                    <p class="col-sm-7 text-3">{{site_information.nigerian_bank_account_number}}</p>
+                  </div>
 
-                  {% if transaction.receipient.card_number %}
+                  <div class="row gx-3 align-items-center">
+                    <p class="col-sm-5 opacity-7 text-sm-end mb-0">Bank Name:</p>
+                    <p class="col-sm-7 text-3 mb-0">{{site_information.nigerian_bank_name}}</p>
+                  </div>
+                {% else %}
+                  <div class="row gx-3 align-items-center">
+                    <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Name:</p>
+                    <p class="col-sm-7 text-3">{{site_information.russian_bank_account_holder_name}}</p>
+                  </div>
+                  {% if site_information.russian_card_number %}
                     <div class="row gx-3 align-items-center">
                       <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Card Number:</p>
-                      <p class="col-sm-7 text-3">{{transaction.receipient.card_number}}</p>
+                      <p class="col-sm-7 text-3">{{site_information.russian_card_number}}</p>
                     </div>
                   {% endif %}
 
-                  {% if transaction.receipient.phone_number %}
+                  {% if site_information.russian_phone_number %}
                     <div class="row gx-3 align-items-center">
                       <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Phone Number:</p>
-                      <p class="col-sm-7 text-3">{{transaction.receipient.phone_number}}</p>
+                      <p class="col-sm-7 text-3">{{site_information.russian_phone_number}}</p>
                     </div>
                   {% endif %}
 
+                  <div class="row gx-3 align-items-center">
+                    <p class="col-sm-5 opacity-7 text-sm-end mb-0">Bank Name:</p>
+                    <p class="col-sm-7 text-3 mb-0">{{site_information.russian_bank_name}}</p>
+                  </div>
+
                 {% endif %}
-                <div class="row gx-3 align-items-center">
-                  <p class="col-sm-5 opacity-7 text-sm-end mb-0">Bank Name:</p>
-                  <p class="col-sm-7 text-3 mb-0">{{transaction.receipient.bank_name}}</p>
-                </div>
               </div>
 
               <hr class="mx-n3 mx-sm-n5 mb-4">

@@ -37,7 +37,7 @@ def register(request):
     return render(request, "signup.html", context)
 
 
-def login(request):
+def Login(request):
 
     if request.user.is_authenticated:
         return redirect('home')
@@ -50,6 +50,9 @@ def login(request):
         if user is not None:
             login(request, user)
             return redirect('dashboard')
+        else:
+            messages.error(request, "Invalid login credentials")
+            return redirect('login')
         
     context = {
         "status": True
@@ -57,6 +60,6 @@ def login(request):
 
     return render(request, "login.html", context)
 
-def logout_(request):
+def Logout(request):
     logout(request)
     return redirect('login')

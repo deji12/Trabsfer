@@ -21,7 +21,8 @@
             {% else %}
               <p class="lead text-center">We're glad to see you again!</p>
             {% endif %}
-            <form id="loginForm" method="post">
+            <form id="loginForm" method="POST">
+              {% csrf_token %}
               <div class="mb-3">
                 <label for="emailAddress" class="form-label">Email Address</label>
                 <input type="email" class="form-control" id="emailAddress" required name="email" placeholder="Enter Your Email">

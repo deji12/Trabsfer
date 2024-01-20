@@ -52,14 +52,17 @@
             <div id="header-nav" class="collapse navbar-collapse">
               <ul class="navbar-nav me-auto">
                 <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'dashboard' %}">Send Money</a></li>
+                {% if request.user.is_authenticated %}
+                  <li><a href="{% url 'transactions' %}">Transactions</a></li>
+                  <li><a href="{% url 'transactions' %}">Recipients</a></li>
+                {% endif %}
                 <li><a href="{% url 'about-us' %}">About Us</a></li>
                 <li><a href="{% url 'contact-us' %}">Contact</a></li>
                 <li><a href="{% url 'blog' %}">Blog</a></li>
                 {% if request.user.is_authenticated %}
-                  <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-                  <li><a href="{% url 'transactions' %}">Transactions</a></li>
+                  <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% endif %}
-                <li><a href="#">Send Money</a></li>
                 
               </ul>
             </div>

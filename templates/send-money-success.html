@@ -44,7 +44,10 @@
             </div>
             <p class="text-3 mb-4">Recipient will receive the amount of <b>{{transaction.converted_amount}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</b> in 5 to 10 minutes.</p>
             <p class="text-3 mb-4">If recipient hasn't received paid amount in 20 minutes, please contact us <a href="{% url 'contact-us' %}"><b>here</b></a>.</p>
-            <div class="d-grid"><button class="btn btn-primary">View Transaction History</button></div>
+            <div class="d-grid">
+              <button class="btn btn-primary" onclick="window.location.href='{% url 'transactions' %}'">View Transaction History</button>
+          </div>
+          
             <!-- <a class="text-3 d-inline-block btn-link mt-4" href="#"><i class="fas fa-print"></i> Print</a> </div> -->
         </div>
       </div>
