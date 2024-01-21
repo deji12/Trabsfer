@@ -16,5 +16,7 @@ class UserRecipient(models.Model):
 
     transfer_type = models.CharField(max_length=225)
 
+    date = models.DateField(auto_now_add=True, null=True, blank=True)
+
     def __str__(self):
         return self.account_name

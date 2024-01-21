@@ -10,4 +10,6 @@ urlpatterns = [
     path('transaction-successful/<str:transaction_id>/', views.SuccessPayment, name='transaction-successful'),
     path('transactions/', views.Transactions, name='transactions'),
     path('delete-transaction/<str:transaction_id>/', views.DeleteTransaction, name='delete-transaction'),
+    path('recipients/', views.Recipients, name='recipients'),
+    path('edit-recipient/<int:_id>/', views.EditRecipientData, name='edit-recipient'),
 ]

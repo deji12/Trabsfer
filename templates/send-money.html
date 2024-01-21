@@ -47,7 +47,7 @@
                 <label for="youSend" class="form-label">You Send</label>
                 <div class="input-group">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" data-bv-field="youSend" name="amount" id="youSend" value=0.0 oninput="convertCurrency()" required placeholder="">
+                  <input type="number" class="form-control" data-bv-field="youSend" name="amount" id="youSend" value=100 min="100" oninput="convertCurrency()" required placeholder="">
                   <span class="input-group-text p-0">
                     <select id="youSendCurrency" data-style="form-select bg-transparent border-0" name="from_currency" data-container="body" data-live-search="true" onchange="convertCurrency()" class="selectpicker form-control bg-transparent" required>
                       <optgroup label="Popular Currency" hidden>
@@ -117,7 +117,7 @@
                 <label for="recipientGets" class="form-label">Recipient Gets</label>
                 <div class="input-group">
                   <span class="input-group-text">$</span>
-                  <input type="text" disabled class="form-control" data-bv-field="recipientGets" name="converted_amount" value=0.0 id="recipientGets" required  placeholder="">
+                  <input type="text" disabled class="form-control" data-bv-field="recipientGets" name="converted_amount" id="recipientGets" required  placeholder="">
                   <span class="input-group-text p-0">
                     <select id="recipientCurrency" data-style="form-select bg-transparent border-0" name="to_currency" data-container="body" onchange="convertCurrency()" data-live-search="true" class="selectpicker form-control bg-transparent" required>
                       <optgroup label="Popular Currency" hidden>
@@ -274,7 +274,10 @@
     });
 
 
-      
+    // Use window.onload event
+    window.onload = function() {
+        convertCurrency();
+    };
 
   </script>
   

@@ -55,7 +55,7 @@
                 <li><a href="{% url 'dashboard' %}">Send Money</a></li>
                 {% if request.user.is_authenticated %}
                   <li><a href="{% url 'transactions' %}">Transactions</a></li>
-                  <li><a href="{% url 'transactions' %}">Recipients</a></li>
+                  <li><a href="{% url 'recipients' %}">Recipients</a></li>
                 {% endif %}
                 <li><a href="{% url 'about-us' %}">About Us</a></li>
                 <li><a href="{% url 'contact-us' %}">Contact</a></li>

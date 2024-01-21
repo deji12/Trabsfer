@@ -1,0 +1,80 @@
+{% include 'nav.html' %}
+  {% load static %}
+  {% load humanize %}
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Content
+  ============================================= -->
+  <div id="content" class="py-4">
+    <div class="container">
+      <div class="row"> 
+        
+        <!-- Middle Panel
+        ============================================= -->
+        <div class="col-lg-9" style="width: 100%;"> 
+          
+
+          
+          <!-- Recent Activity
+          =============================== -->
+          <div class="bg-white shadow-sm rounded py-4 mb-4" style="width: 100%;">
+            <h3 class="text-5 fw-400 d-flex align-items-center px-4 mb-4">Recent Activity</h3>
+            
+            <!-- Title
+            =============================== -->
+            <div class="transaction-title py-2 px-4">
+              <div class="row fw-00">
+                <div class="col col-sm-7">Recipient</div>
+                <div class="col-auto col-sm-2 d-sm-block text-center">Date</div>
+                <div class="col-3 col-sm-2 text-end">Currency</div>
+              </div>
+            </div>
+            <!-- Title End --> 
+            
+            <!-- Transaction List
+            =============================== -->
+            <div class="transaction-list">
+              {% for i in recipients %}
+              <div class="transaction-item px-4 py-3" data-bs-toggle="modal" data-bs-target="#transaction-detail" onclick="window.location.href = '{% url 'edit-recipient' i.id %}' ">
+            
+                  <div class="row align-items-center flex-row">
+                    
+                    <div class="col col-sm-7"> <span class="d-block text-4">{{i.bank_name}}</span> <span class="text-muted">{{i.account_name}}</span> </div>
+                    <div class="col-3 col-sm-2 text-end text-4"> <span class="text-nowrap text-muted"> {{i.date}} </span></div>
+                    <div class="col-3 col-sm-2 text-end text-4"> <span class="text-nowrap"> {% if i.transfer_type == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}&nbsp; {{i.amount}}</span> <span class="text-2 text-uppercase"></span> </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <!-- Transaction List End --> 
+        
+            
+          </div>
+          <!-- Recent Activity End --> 
+        </div>
+        <!-- Middle Panel End --> 
+      </div>
+    </div>
+  </div>
+  <!-- Content end --> 
+  
+  <!-- Footer
+  ============================================= -->
+  
+  <!-- Footer end --> 
+  
+</div>
+<!-- Document Wrapper end --> 
+
+<!-- Back to Top
+============================================= --> 
+<a id="back-to-top" data-bs-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a> 
+
+<!-- Styles Switcher -->
+{% include 'footer.html' %}
+<!-- Styles Switcher End --> 
+
+<!-- Script --> 
+{% include 'scripts.html' %} 
+</body>
+</html>

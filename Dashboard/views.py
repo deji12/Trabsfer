@@ -4,6 +4,7 @@ from Globals.models import Rate, Transaction
 from Receipient.models import UserRecipient
 from django.conf import settings
 from django.core.mail import EmailMessage
+import uuid
 
 @login_required
 def Home(request):
@@ -22,6 +23,7 @@ def Home(request):
             from_currency = from_currency,
             to_currency = to_currency,
             amount = amount,
+            transaction_id=uuid.uuid4()
         )
         new_transaction.save()
         return redirect('select-recipient', transaction_id=new_transaction.transaction_id)
@@ -224,7 +226,7 @@ def ConfirmedPayment(request, transaction_id):
         [settings.PLATFORM_EMAIL_RECEIVER, get_transaction.user.email] # recipients
     )
     email_mess.fail_silently = True
-    email_mess.send()
+    # email_mess.send()
 
     return redirect('transaction-successful', transaction_id=transaction_id)
 
@@ -251,9 +253,57 @@ def Transactions(request):
     return render(request, "transactions.html", context)
 
 @login_required
+def Recipients(request):
+
+    get_user_recipients = UserRecipient.objects.filter(user=request.user)
+
+    context = {
+        "recipients": get_user_recipients
+    }
+
+    return render(request, "recipients.html", context)
+
+@login_required
 def DeleteTransaction(request, transaction_id):
 
     get_transaction = Transaction.objects.get(transaction_id=transaction_id)
     get_transaction.delete()
 
     return redirect('transactions')
+
+def EditRecipientData(request, _id):
+
+    try:
+        get_recipient = UserRecipient.objects.get(user=request.user, id=_id)
+
+        if request.method == "POST":
+
+            account_name = request.POST.get('account_name')
+            bank_name = request.POST.get('bank_name')    
+            card_number = request.POST.get('card_number')
+            phone_number = request.POST.get('phone_number')   
+            account_number = request.POST.get('account_number')
+        
+            if account_name:
+                get_recipient.account_name = account_name
+            if bank_name:
+                get_recipient.bank_name = bank_name
+            if card_number:
+                get_recipient.card_number = card_number
+            if phone_number:
+                get_recipient.phone_number = phone_number
+            if account_number:
+                get_recipient.account_number = account_number
+            
+            get_recipient.save()
+
+            return redirect('recipients')
+
+        context = {
+            'recipient': get_recipient
+        }
+
+        return render(request, "edit-recipient.html", context)
+    except UserRecipient.DoesNotExist:
+
+        return redirect('recipients')

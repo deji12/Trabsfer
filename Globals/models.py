@@ -22,7 +22,7 @@ class Transaction(models.Model):
     to_currency = models.CharField(max_length=225)
     current_exchange_rate = models.FloatField(max_length=225, null=True, blank=True)
     amount = models.FloatField()
-    transaction_id = models.CharField(max_length=225, default=uuid.uuid4())
+    transaction_id = models.CharField(max_length=225)
     converted_amount = models.FloatField(default=0)
     paid = models.BooleanField(default=False)
     has_receipient = models.BooleanField(default=False)

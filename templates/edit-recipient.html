@@ -1,0 +1,94 @@
+{% include 'nav.html' %}
+  {% load static %} 
+  
+  <!-- Content
+  ============================================= -->
+  <div id="content" class="py-4">
+    <div class="container"> 
+    
+      <h2 class="fw-400 text-center mt-3">Edit recipient</h2>
+      <p class="lead text-center mb-4">Edit the details below.</p>
+
+      <div class="row" id="add-recipient">
+        <div class="col-md-9 col-lg-7 col-xl-6 mx-auto">
+          <div class="bg-white shadow-sm rounded p-3 pt-sm-4 pb-sm-5 px-sm-5 mb-4">
+            <h3 class="text-5 fw-400 mb-3 mb-sm-4">Recipient details</h3>
+            <hr class="mx-n3 mx-sm-n5 mb-4">
+            <!-- Send Money Form
+            ============================ -->
+            <form id="editReceipient" method="POST">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Account Name</label>
+                <input type="text" class="form-control" id="fullName" required name="account_name" value="{{recipient.account_name}}" placeholder="Enter Account Name">
+              </div>
+              <div class="mb-3">
+                <label for="fullName" class="form-label">Bank Name</label>
+                <input type="text" class="form-control" id="fullName" required name="bank_name" value="{{recipient.bank_name}}" placeholder="Enter Bank Name">
+              </div>
+              {% if recipient.transfer_type == "Nigerian naira" %}
+                <div class="mb-3">
+                  <label for="emailAddress" class="form-label">Account Number</label>
+                  <input type="text" class="form-control" id="emailAddress" required name="account_number" value="{{recipient.account_number}}" placeholder="Enter Account Number">
+                </div>
+              {% endif %}
+              {% if recipient.transfer_type == "Russian rouble" %}
+                <div class="mb-3">
+                  <label for="emailAddress" class="form-label">Card Number</label>
+                  <input type="text" class="form-control" id="cardNumber" name="card_number" value="{{recipient.card_number}}" placeholder="Enter Card Number (optional)">
+                </div>
+                <div class="mb-3">
+                  <label for="emailAddress" class="form-label">Phone Number</label>
+                  <input type="text" class="form-control" id="phoneNumber" name="phone_number" value="{{recipient.phone_number}}" placeholder="Enter Phone Number (optional)">
+                </div>
+              {% endif %}
+              <p id="error-msg" style="color: firebrick;"></p>
+              <div class="d-grid mt-4 mb-3"><button class="btn btn-primary" type="submit">Update Recipient</button></div>
+            </form>
+            <!-- Send Money Form end --> 
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Content end --> 
+  
+  <!-- Footer
+  ============================================= -->
+  {% include 'footer.html' %}
+  <!-- Footer end --> 
+  
+</div>
+<!-- Document Wrapper end --> 
+
+<!-- Back to Top
+============================================= --> 
+<a id="back-to-top" data-bs-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a> 
+
+<!-- Script --> 
+{% include 'scripts.html' %}  
+
+<script>
+    // Assuming you have a form element with the ID 'yourForm'
+  const form = document.getElementById('editReceipient');
+
+    form.addEventListener('submit', function(event) {
+        // Assuming you have two input fields with the IDs 'cardNumber' and 'phoneNumber'
+        const cardNumberInput = document.getElementById('cardNumber');
+        const phoneNumberInput = document.getElementById('phoneNumber');
+
+        // Check if at least one of the fields is filled
+        if (!cardNumberInput.value.trim() && !phoneNumberInput.value.trim()) {
+            // Display an error message or prevent form submission
+            document.getElementById('error-msg').innerHTML = 'Please fill out at least one of the fields (Card Number or Phone Number).';
+            event.preventDefault(); // Prevent form submission
+        }
+        // else, continue with the form submission
+    });
+</script>
+
+
+</script>
+</body>
+</html>
