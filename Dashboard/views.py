@@ -226,7 +226,7 @@ def ConfirmedPayment(request, transaction_id):
         [settings.PLATFORM_EMAIL_RECEIVER, get_transaction.user.email] # recipients
     )
     email_mess.fail_silently = True
-    # email_mess.send()
+    email_mess.send()
 
     return redirect('transaction-successful', transaction_id=transaction_id)
 
