@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import cloudinary_storage
 
 SITE_ID = 1
 
@@ -49,6 +50,10 @@ INSTALLED_APPS = [
     'Dashboard',
     'Globals',
     'django.contrib.humanize',
+    'ckeditor',
+    'ckeditor_uploader',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -128,8 +133,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -138,6 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,  'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+
 
 EMAIL_BACKEND = 'utils.backends.email_backend.EmailBackend'
 
@@ -151,6 +155,13 @@ EMAIL_HOST_PASSWORD = 'ikkp sjne olce rwdi'
 # PLATFORM_EMAIL_RECEIVER = 'succylofx@gmail.com'
 PLATFORM_EMAIL_RECEIVER = 'succylofx@proton.me'
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dukhvwpx8',
+    'API_KEY': '367151739697676',
+    'API_SECRET': 'c3GhXl-AIX7DS05ZE9GynWAKU9U'
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 #proton M
 # succylofx@proton.me
 # bKn+w(ZS.Yq2#6r
@@ -160,6 +171,86 @@ PLATFORM_EMAIL_RECEIVER = 'succylofx@proton.me'
 # ikkp sjne olce rwdi
 
 LOGIN_URL = 'login'
+
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'moono',
+        # 'skin': 'office2013',
+        'toolbar_Basic': [
+            ['Source', '-', 'Bold', 'Italic', 'Youtube']
+        ],
+        'toolbar_YourCustomToolbarConfig': [
+            'Youtube', {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+            {'name': 'forms',
+             'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+                       'HiddenField']},
+            '/',
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                       'Language']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'insert',
+             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+            '/',
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+            {'name': 'about', 'items': ['About']},
+            '/',  # put this to force next toolbar on new line
+            {'name': 'yourcustomtools', 'items': [
+                # put the name of your editor.ui.addButton here
+                'Preview',
+                'Maximize',
+
+            ]},
+        ],
+        'toolbar': 'toolbar_Basic',  # put selected toolbar config here
+        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+        'height': 500,
+        'width': '100%',
+        # 'filebrowserWindowHeight': 725,
+        # 'filebrowserWindowWidth': 940,
+        # 'toolbarCanCollapse': True,
+        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+        'tabSpaces': 4,
+        'extraPlugins': ','.join([
+            'uploadimage', 
+            'youtube',
+            'div',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            # 'devtools',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath'
+        ]),
+    }
+}
+
+# ckeditor__external_plugin_resources = [
+#     (
+#         "youtube",
+#         "/static/ckeditor/ckeditor/plugins/youtube/",
+#         "plugin.js",
+#     )
+# ]
+
+# CKEDITOR_CONFIGS["default"][
+#     "external_plugin_resources"
+# ] = ckeditor__external_plugin_resources
 
 JAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,

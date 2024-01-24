@@ -207,8 +207,6 @@ def ChangeTransactionAmount(request, transaction_id):
 def ConfirmedPayment(request, transaction_id):
 
     get_transaction = Transaction.objects.get(transaction_id=transaction_id, user=request.user)
-    get_transaction.paid = True
-    get_transaction.save()
 
     naira_transaction_message = f"Transaction ID: {transaction_id}\n\nUser: {get_transaction.user.get_full_name()}\n\nType: {get_transaction.from_currency} --> {get_transaction.to_currency}\n\nPaid amount: {get_transaction.amount} {get_transaction.from_currency}\n\nConverted to {get_transaction.converted_amount} {get_transaction.to_currency}\n\nRate: {get_transaction.current_exchange_rate}\n\n\nReceiver Account:\nBank Name: {get_transaction.receipient.bank_name}\n\nAccount Name: {get_transaction.receipient.account_name}\n\nAccount Number: {get_transaction.receipient.account_number}  \n\n\nDate: {get_transaction.date}"
     rouble_transaction_message = f"Transaction ID: {transaction_id}\n\nUser: {get_transaction.user.get_full_name()}\n\nType: {get_transaction.from_currency} --> {get_transaction.to_currency}\n\nPaid amount: {get_transaction.amount} {get_transaction.from_currency}\n\nConverted to {get_transaction.converted_amount} {get_transaction.to_currency}\n\nRate: {get_transaction.current_exchange_rate}\n\n\nReceiver Account:\nBank Name: {get_transaction.receipient.bank_name}\n\nAccount Name: {get_transaction.receipient.account_name}\n\nCard Number: {get_transaction.receipient.card_number}\n\nPhone Number: {get_transaction.receipient.phone_number}  \n\n\nDate: {get_transaction.date}"

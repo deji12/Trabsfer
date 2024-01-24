@@ -1,21 +1,31 @@
 from django.shortcuts import render
-from Globals.models import Rate
+from Globals.models import Rate, Testimonial, FAQ
 
 def Home(request):
 
     naira = Rate.objects.get(currency_name='Nigerian naira')
     rouble = Rate.objects.get(currency_name='Russian rouble')
+    testimonials = Testimonial.objects.all()
+    faqs = FAQ.objects.all()
 
     context = {
         "naira": naira.rate,
         "rouble": rouble.rate,
+        "testimonials": testimonials,
+        "faqs": faqs
     }
 
     return render(request, "landing.html", context)
 
 def AboutUs(request):
 
-    return render(request, "about-us.html")
+    testimonials = Testimonial.objects.all()
+
+    context = {
+        "testimonials": testimonials,
+    }
+
+    return render(request, "about-us.html", context)
 
 def Contact(request):
 

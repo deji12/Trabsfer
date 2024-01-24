@@ -1,0 +1,161 @@
+[
+{
+  "model": "Globals.rate",
+  "pk": 1,
+  "fields": {
+    "currency_name": "Russian rouble",
+    "rate": 9.6916712
+  }
+},
+{
+  "model": "Globals.rate",
+  "pk": 2,
+  "fields": {
+    "currency_name": "Nigerian naira",
+    "rate": 0.10342564
+  }
+},
+{
+  "model": "Globals.transaction",
+  "pk": 13,
+  "fields": {
+    "user": 3,
+    "receipient": 3,
+    "from_currency": "Russian rouble",
+    "to_currency": "Nigerian naira",
+    "current_exchange_rate": 9.6916712,
+    "amount": 100.0,
+    "transaction_id": "9f598c98-f533-4b40-b6f2-73e18122d749",
+    "converted_amount": 969.16712,
+    "paid": true,
+    "has_receipient": true,
+    "date": "2024-01-21T06:46:36.957Z"
+  }
+},
+{
+  "model": "Globals.transaction",
+  "pk": 16,
+  "fields": {
+    "user": 3,
+    "receipient": 4,
+    "from_currency": "Russian rouble",
+    "to_currency": "Nigerian naira",
+    "current_exchange_rate": 9.6916712,
+    "amount": 1000000.0,
+    "transaction_id": "f65e25be-706f-43f3-a17d-fe4834f88e85",
+    "converted_amount": 9691671.2,
+    "paid": true,
+    "has_receipient": true,
+    "date": "2024-01-21T06:53:01.869Z"
+  }
+},
+{
+  "model": "Globals.transaction",
+  "pk": 18,
+  "fields": {
+    "user": 6,
+    "receipient": 5,
+    "from_currency": "Russian rouble",
+    "to_currency": "Nigerian naira",
+    "current_exchange_rate": 9.6916712,
+    "amount": 400.0,
+    "transaction_id": "f0efa45c-adfe-421f-96be-a7cd86c22342",
+    "converted_amount": 3876.66848,
+    "paid": true,
+    "has_receipient": true,
+    "date": "2024-01-22T13:07:04.815Z"
+  }
+},
+{
+  "model": "Globals.transaction",
+  "pk": 21,
+  "fields": {
+    "user": 6,
+    "receipient": 5,
+    "from_currency": "Russian rouble",
+    "to_currency": "Nigerian naira",
+    "current_exchange_rate": 9.6916712,
+    "amount": 1000.0,
+    "transaction_id": "75544599-f4e1-4aa6-9db8-f7ac74c89ab9",
+    "converted_amount": 9691.6712,
+    "paid": true,
+    "has_receipient": true,
+    "date": "2024-01-22T13:25:20.755Z"
+  }
+},
+{
+  "model": "Globals.siteinformation",
+  "pk": 2,
+  "fields": {
+    "site": 1,
+    "site_name": "Succylofx",
+    "site_title": null,
+    "nigerian_bank_name": "Zenith bank",
+    "nigerian_bank_account_holder_name": "Ayodeji Adesola",
+    "nigerian_bank_account_number": "1234567898",
+    "russian_bank_name": null,
+    "russian_bank_account_holder_name": null,
+    "russian_card_number": null,
+    "russian_phone_number": null,
+    "facebook_link": "https://web.facebook.com/profile.php?id=100027280671291&amp;_rdc=1&amp;_rdr",
+    "twitter_link": "https://web.facebook.com/profile.php?id=100027280671291&amp;_rdc=1&amp;_rdr",
+    "whatsapp_link": "https://api.whatsapp.com/send?phone=79998542197&text=Hello%2C%20i%20am%20%5BNAME%5D%20and%20i%20am%20contacting%20you%20from%20succylofx%20website%20because%20%5Byour%20message%5D",
+    "instagram_link": "https://www.instagram.com/succylofx/",
+    "contact_email": "succylofx@gmail.com",
+    "contact_number": "+79998542197",
+    "footer_message": "",
+    "contact_page_message": ""
+  }
+},
+{
+  "model": "Globals.testimonial",
+  "pk": 1,
+  "fields": {
+    "name": "Mr. Sampson",
+    "content": "SUCCYLO GLOBALfx is the fastest money transfer website in Russia. They offers the best rate with secure transactions.",
+    "job": "Chief Executive Officer"
+  }
+},
+{
+  "model": "Globals.testimonial",
+  "pk": 2,
+  "fields": {
+    "name": "Miss Precious",
+    "content": "I joined here in 2017, this is legal, compliance, risk, financial crime, internal audit and company secretariat teams.",
+    "job": "Student"
+  }
+},
+{
+  "model": "Globals.testimonial",
+  "pk": 3,
+  "fields": {
+    "name": "Mr. Collins",
+    "content": "This is a trustable site, I have joined here recently but their working process is so user-friendly and riable.",
+    "job": "Businessman"
+  }
+},
+{
+  "model": "Globals.faq",
+  "pk": 1,
+  "fields": {
+    "question": "How do I create an account with Succylo globalfx?",
+    "answer": "The website is user-friendly. If you want to open an account for personal use you can do it over the phone or online.\r\nCreating an account online should only take a few minutes\r\nYou need to register to the site and just login to the site using your email and password"
+  }
+},
+{
+  "model": "Globals.faq",
+  "pk": 2,
+  "fields": {
+    "question": "How can I contact Succylo globalfx?",
+    "answer": "our contact details are in the contact page. You can call our support team by our phone number or write us on WhatsApp"
+  }
+},
+{
+  "model": "Globals.faq",
+  "pk": 3,
+  "fields": {
+    "question": "How to make a transaction?",
+    "answer": "If you already have an account, sign in. Click 'send money' in the nav bar and select the amount you want to send and select what currency you want to send and specify what currency the recipient will receive the money in. After that, select the recipient for this transaction or create a new one. Next, review the transaction and complete the transaction"
+  }
+}
+]

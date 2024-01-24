@@ -7,3 +7,7 @@ Nav:
     login
     logout
     register
+
+    python manage.py dumpdata auth --indent 2 > auth.json
+
+https://medium.com/@7.vincent/how-to-export-and-import-data-in-django-a-practical-guide-0a94a438ac6a

@@ -71,4 +71,19 @@ class SiteInformation(models.Model):
     footer_message = models.TextField(blank=True, null=True)
     contact_page_message = models.TextField(blank=True, null=True)
 
+class Testimonial(models.Model):
+
+    name = models.CharField(max_length=225)
+    content = models.TextField()
+    job = models.CharField(max_length=225)
+
+    def __str__(self):
+        return self.name    
     
+class FAQ(models.Model):
+
+    question = models.CharField(max_length=225)
+    answer = models.TextField()
+
+    def __str__(self):
+        return self.question

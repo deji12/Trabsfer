@@ -20,3 +20,13 @@ class SiteInformationAdmin(admin.ModelAdmin):
     list_display = ('site_name', 'nigerian_bank_name', 'nigerian_bank_account_holder_name', 'nigerian_bank_account_number', 'russian_bank_name', 'russian_bank_account_holder_name', 'russian_card_number', 'russian_phone_number')
 
 admin.site.register(SiteInformation, SiteInformationAdmin)
+
+class TestimonialsAdmin(admin.ModelAdmin):
+    list_display = ['name', 'content', 'job']
+
+admin.site.register(Testimonial, TestimonialsAdmin)
+
+class FAQAdmin(admin.ModelAdmin):
+    list_display = ['question', 'answer']
+
+admin.site.register(FAQ, FAQAdmin)

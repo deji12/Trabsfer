@@ -53,7 +53,7 @@
                         
                       {% endif %}
                     </div>
-                    <div class="col-3 col-sm-2 text-end text-4"> <span class="text-nowrap"> {% if i.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}&nbsp; {{i.amount}}</span> <span class="text-2 text-uppercase"></span> </div>
+                    <div class="col-3 col-sm-2 text-end text-4"> <span class="text-nowrap"> {% if i.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}&nbsp; {{i.amount|intcomma}}</span> <span class="text-2 text-uppercase"></span> </div>
                   </div>
                 </div>
               {% endfor %}
