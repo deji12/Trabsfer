@@ -31,6 +31,11 @@
           </div>
         </div>
       </div>
+      <style>
+        .step-dot {
+          border: #0d6efd;
+        }
+      </style>
       <h2 class="fw-400 text-center mt-3">Send Money</h2>
       <p class="lead text-center mb-4">Send your money on anytime, anywhere in the world.</p>
       <div class="row">
@@ -188,6 +193,8 @@
               <hr>
               <p class="text-4 fw-500">Total To Pay<span class="float-end" id="total_pay"></span><span class="float-end">{% if transaction.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}&nbsp;</span></p>
               <div class="d-grid"><button type="submit" class="btn btn-primary">Continue</button></div>
+              <hr>
+              <p class="text-muted text-center">Your money will arrive in 5 to 10 minutes</p>
             </form>
             <!-- Send Money Form end --> 
           </div>
@@ -241,8 +248,16 @@
             }
 
             // Update the UI
-            currentRate.innerHTML = `The current exchange rate is 1 ${fromCurrency} = ${customRates[fromCurrency]} ${toCurrency}`;
+            currentRate.innerHTML = `The current exchange rate is 1 ${get_currency_symbol(fromCurrency)} = ${customRates[fromCurrency]} ${get_currency_symbol(toCurrency)}`;
         }
+    }
+
+    function get_currency_symbol(currency){
+      if(currency == "Russian rouble"){
+        return "₽";
+      } else {
+        return "NGN";
+      }
     }
 
 
