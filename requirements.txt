@@ -2,7 +2,7 @@ asgiref==3.7.2
 certifi==2023.11.17
 charset-normalizer==3.3.2
 cloudinary==1.38.0
-Django==5.0.1
+Django
 django-ckeditor==6.7.0
 django-ckeditor-youtube-plugin==0.0.1
 django-cloudinary-storage==0.3.0

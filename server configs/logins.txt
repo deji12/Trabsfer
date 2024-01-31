@@ -1,0 +1,12 @@
+VPS management platform:
+    Username....   u_1819707
+    Password ... FnYkuNJPYdQnw9GKEG
+
+ssh:
+    port 22
+    username root
+    password qT2WW5Yfw5zMVy646s
+             C54ad0MNkisO4QM7y9
+
+delete logins:
+    ssh-keygen -R ip_address

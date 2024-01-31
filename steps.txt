@@ -14,3 +14,6 @@ https://medium.com/@7.vincent/how-to-export-and-import-data-in-django-a-practica
 
 
 ssh -i id_rsa succylog@50.87.151.187
+
+
+136590920
