@@ -8,14 +8,14 @@
     ============================================= -->
     <section class="hero-wrap">
       <div class="hero-mask opacity-7 bg-dark"></div>
-      <div class="hero-bg" style="background-image:url('{% static "images/bg/image-6.jpg" %}');"></div>
+      <div class="hero-bg" style="background-image:url('{% static "btc.png" %}');"></div>
       <div class="hero-content d-flex flex-column fullscreen-with-header">
         <div class="container my-auto py-5">
           <div class="row">
             <div class="col-lg-6 col-xl-7 my-auto text-center text-lg-start pb-5 pb-lg-0">
-              <h2 class="text-17 text-white"><span class="fw-400 text-15">A better way to</span> <br>
-                Send Money</h2>
-              <p class="text-4 text-white mb-4"> Send money with a better exchange rate and avoid excessive bank fees.</p>
+              <h2 class="text-17 text-white"><span class="fw-400 text-15">Send money effortlessly, </span> <br>
+                hassle-free.</h2>
+              <p class="text-4 text-white mb-4">Transfer funds with an improved exchange rate and steer clear of excessive bank fees.</p>
               
               <a hidden class="btn btn-outline-light video-btn" href="#" data-src="https://www.youtube.com/embed/7e90gBu4pas" data-bs-toggle="modal" data-bs-target="#videoModal"><span class="text-2 me-3"><i class="fas fa-play"></i></span>See How it Works</a> </div>
             <div class="col-lg-6 col-xl-5 my-auto">
@@ -28,7 +28,7 @@
                   <div class="mb-3">
                     <label for="youSend" class="form-label">You Send</label>
                     <div class="input-group">
-                      <span class="input-group-text">$</span>
+                      <span class="input-group-text" id="send_symbol" style="max-width: 40px;"></span>
                       <input type="number" class="form-control" data-bv-field="youSend" name="amount" id="youSend" value="100" min="100" oninput="convertCurrency()" required placeholder="">
                       <span class="input-group-text p-0">
                         <select id="youSendCurrency" data-style="form-select bg-transparent border-0" name="from_currency" data-container="body" data-live-search="true" onchange="convertCurrency()" class="selectpicker form-control bg-transparent" required>
@@ -98,7 +98,7 @@
                   <div class="mb-3">
                     <label for="recipientGets" class="form-label">Recipient Gets</label>
                     <div class="input-group">
-                      <span class="input-group-text">$</span>
+                      <span class="input-group-text" id="receive_symbol" style="max-width: 40px !important;"></span>
                       <input type="text" disabled class="form-control" data-bv-field="recipientGets" name="converted_amount" value=0.0 id="recipientGets" required  placeholder="">
                       <span class="input-group-text p-0">
                         <select id="recipientCurrency" data-style="form-select bg-transparent border-0" name="to_currency" data-container="body" onchange="convertCurrency()" data-live-search="true" class="selectpicker form-control bg-transparent" required>
@@ -169,7 +169,7 @@
                   <!-- <hr>
                   <p>Total Fees<span class="float-end">7.21 USD</span></p> -->
                   <hr>
-                  <p class="text-4 fw-500">Total To Pay<span class="float-end" id="total_pay"></span><span class="float-end">{% if transaction.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}&nbsp;</span></p>
+                  <p class="text-4 fw-500">Total To Pay<span class="float-end" id="total_pay"></span><span class="float-end">&nbsp;</span></p>
                   <div class="d-grid"><button type="submit" class="btn btn-primary">Continue</button></div>
                   <hr>
                   <p class="text-muted text-center">Your money will arrive in 5 to 10 minutes</p>
@@ -222,13 +222,13 @@
     ============================================= -->
     <section class="section">
       <div class="container">
-        <h2 class="text-9 text-center">Why choose SUCCYLOGLOBALFX?</h2>
+        <h2 class="text-8 text-center">Why choose SUCCYLOGLOBALFX?</h2>
         <p class="lead text-center mb-5">Here’s Top 4 reasons why using a SUCCYLOGLOBALFX account for manage your money.</p>
         <div class="row gy-4">
           <div class="col-md-6">
             <div class="hero-wrap section h-100 p-5 rounded">
               <div class="hero-mask rounded opacity-6 bg-dark"></div>
-              <div class="hero-bg rounded" style="background-image:url('{% static "images/bg/image-6.jpg" %}');"></div>
+              <div class="hero-bg rounded" style="background-image:url('{% static "why.jpeg" %}');"></div>
               <div class="hero-content">
                 <h2 class="text-6 text-white mb-3">Why SUCCYLOGLOBALFX?</h2>
                 <p class="text-light mb-5">We support the most secure services and features. This secured website supports a user-friendly interface and various attractive features that is ready to use.</p>
@@ -292,7 +292,7 @@
     ============================================= -->
     <section class="section">
       <div class="container">
-        <h2 class="text-9 text-center">What people say about SUCCYLOGLOBALFX</h2>
+        <h2 class="text-8 text-center">What people say about SUCCYLOGLOBALFX</h2>
         <p class="lead text-center mb-4">A payments experience people love to talk about</p>
         <div class="row">
           <div class="col-lg-10 col-xl-8 mx-auto">
@@ -397,6 +397,14 @@
       // Add more rates as needed
   };
 
+  function get_currency_symbol(currency){
+    if(currency == "Russian rouble"){
+      return "₽";
+    } else {
+      return "₦";
+    }
+  }
+
   function convertCurrency() {
       const amountInput = document.getElementById('youSend');
       const fromCurrencySelect = document.getElementById('youSendCurrency');
@@ -405,9 +413,14 @@
       const currentRate = document.getElementById('current_rate');
       const totalPay = document.getElementById('total_pay');
 
-      const amount = parseFloat(amountInput.value) || 0;
+      const amount = parseFloat(amountInput.value.replace(/,/g, '')) || 0;
+      const formattedAmount = amount.toLocaleString();
+
       const fromCurrency = fromCurrencySelect.value;
       const toCurrency = toCurrencySelect.value;
+
+      document.getElementById('send_symbol').innerHTML = get_currency_symbol(fromCurrency);
+      document.getElementById('receive_symbol').innerHTML = get_currency_symbol(toCurrency)
 
       // Check if both "from" and "to" currencies are selected
       if (fromCurrency && toCurrency) {
@@ -417,7 +430,7 @@
               // Display the same amount in the "to" currency
               const formattedAmount = amount.toFixed(2).replace(/,/g, '');
               equivalentAmountSpan.value = formattedAmount;
-              totalPay.innerHTML = formattedAmount;
+              totalPay.innerHTML = `${get_currency_symbol(fromCurrency)} ${formattedAmount}`;
           } else {
               // Calculate equivalent amount using custom rates
               const equivalentAmount = (amount * customRates[fromCurrency]).toFixed(2);
@@ -429,20 +442,12 @@
               });
 
               equivalentAmountSpan.value = formattedEquivalentAmount;  
-              totalPay.innerHTML = formattedEquivalentAmount;
+              totalPay.innerHTML = `${get_currency_symbol(fromCurrency)} ${formattedAmount}`;
           }
 
           // Update the UI
           currentRate.innerHTML = `The current exchange rate is 1 ${get_currency_symbol(fromCurrency)} = ${customRates[fromCurrency]} ${get_currency_symbol(toCurrency)}`;
       }
-  }
-
-  function get_currency_symbol(currency){
-    if(currency == "Russian rouble"){
-      return "₽";
-    } else {
-      return "NGN";
-    }
   }
 
 

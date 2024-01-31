@@ -51,7 +51,7 @@
               <div class="mb-3">
                 <label for="youSend" class="form-label">You Send</label>
                 <div class="input-group">
-                  <span class="input-group-text">$</span>
+                  <span class="input-group-text" id="send_symbol"></span>
                   <input type="number" class="form-control" data-bv-field="youSend" name="amount" id="youSend" value="100" min="100" oninput="convertCurrency()" required placeholder="">
                   <span class="input-group-text p-0">
                     <select id="youSendCurrency" data-style="form-select bg-transparent border-0" name="from_currency" data-container="body" data-live-search="true" onchange="convertCurrency()" class="selectpicker form-control bg-transparent" required>
@@ -121,7 +121,7 @@
               <div class="mb-3">
                 <label for="recipientGets" class="form-label">Recipient Gets</label>
                 <div class="input-group">
-                  <span class="input-group-text">$</span>
+                  <span class="input-group-text" id="receive_symbol"></span>
                   <input type="text" disabled class="form-control" data-bv-field="recipientGets" name="converted_amount" id="recipientGets" required  placeholder="">
                   <span class="input-group-text p-0">
                     <select id="recipientCurrency" data-style="form-select bg-transparent border-0" name="to_currency" data-container="body" onchange="convertCurrency()" data-live-search="true" class="selectpicker form-control bg-transparent" required>
@@ -191,7 +191,7 @@
               <!-- <hr>
               <p>Total Fees<span class="float-end">7.21 USD</span></p> -->
               <hr>
-              <p class="text-4 fw-500">Total To Pay<span class="float-end" id="total_pay"></span><span class="float-end">{% if transaction.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}&nbsp;</span></p>
+              <p class="text-4 fw-500">Total To Pay<span class="float-end" id="total_pay"></span><span class="float-end">&nbsp;</span></p>
               <div class="d-grid"><button type="submit" class="btn btn-primary">Continue</button></div>
               <hr>
               <p class="text-muted text-center">Your money will arrive in 5 to 10 minutes</p>
@@ -212,6 +212,14 @@
         // Add more rates as needed
     };
 
+    function get_currency_symbol(currency){
+      if(currency == "Russian rouble"){
+        return "₽";
+      } else {
+        return "₦";
+      }
+    }
+
     function convertCurrency() {
         const amountInput = document.getElementById('youSend');
         const fromCurrencySelect = document.getElementById('youSendCurrency');
@@ -220,9 +228,14 @@
         const currentRate = document.getElementById('current_rate');
         const totalPay = document.getElementById('total_pay');
 
-        const amount = parseFloat(amountInput.value) || 0;
+        const amount = parseFloat(amountInput.value.replace(/,/g, '')) || 0;
+        const formattedAmount = amount.toLocaleString();
+
         const fromCurrency = fromCurrencySelect.value;
         const toCurrency = toCurrencySelect.value;
+
+        document.getElementById('send_symbol').innerHTML = get_currency_symbol(fromCurrency);
+        document.getElementById('receive_symbol').innerHTML = get_currency_symbol(toCurrency)
 
         // Check if both "from" and "to" currencies are selected
         if (fromCurrency && toCurrency) {
@@ -232,7 +245,7 @@
                 // Display the same amount in the "to" currency
                 const formattedAmount = amount.toFixed(2).replace(/,/g, '');
                 equivalentAmountSpan.value = formattedAmount;
-                totalPay.innerHTML = formattedAmount;
+                totalPay.innerHTML = `${get_currency_symbol(fromCurrency)} ${formattedAmount}`;
             } else {
                 // Calculate equivalent amount using custom rates
                 const equivalentAmount = (amount * customRates[fromCurrency]).toFixed(2);
@@ -244,20 +257,12 @@
                 });
 
                 equivalentAmountSpan.value = formattedEquivalentAmount;  
-                totalPay.innerHTML = formattedEquivalentAmount;
+                totalPay.innerHTML = `${get_currency_symbol(fromCurrency)} ${formattedAmount}`;
             }
 
             // Update the UI
             currentRate.innerHTML = `The current exchange rate is 1 ${get_currency_symbol(fromCurrency)} = ${customRates[fromCurrency]} ${get_currency_symbol(toCurrency)}`;
         }
-    }
-
-    function get_currency_symbol(currency){
-      if(currency == "Russian rouble"){
-        return "₽";
-      } else {
-        return "NGN";
-      }
     }
 
 
