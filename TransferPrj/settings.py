@@ -29,6 +29,8 @@ SECRET_KEY = 'django-insecure-p35kktr=c&jz$5^o9e5hxlg&oi=ax#b9#aq=^#ejp0e&9fmd*h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CSRF_TRUSTED_ORIGINS = ['https://succyloglobalfx.com']
+
 ALLOWED_HOSTS = ['succyloglobalfx.com', '162.254.35.54']
 
 
@@ -142,6 +144,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,  'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 EMAIL_BACKEND = 'utils.backends.email_backend.EmailBackend'

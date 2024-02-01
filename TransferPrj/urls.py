@@ -14,5 +14,7 @@ urlpatterns = [
     path('dashboard/', include('Dashboard.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ] 
-# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+if settings.DEBUG:
+    urlpatterns += path('admin/', admin.site.urls)
 
