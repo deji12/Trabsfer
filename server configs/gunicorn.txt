@@ -1,7 +1,7 @@
 
 run:
     ginicorn:
-        gunicorn --bind 0.0.0.0:8000 project_name.wsgi
+        gunicorn --bind 0.0.0.0:8000 TransferPrj.wsgi
     python:
         python manage.py runserver 0.0.0.0:8000
 

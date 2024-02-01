@@ -4,9 +4,9 @@ VPS management platform:
 
 ssh:
     port 22
+    ip: 162.254.35.54
     username root
-    password qT2WW5Yfw5zMVy646s
-             C54ad0MNkisO4QM7y9
+    password C54ad0MNkisO4QM7y9
 
 delete logins:
     ssh-keygen -R ip_address
