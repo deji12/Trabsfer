@@ -13,8 +13,6 @@ def Home(request):
     rouble = Rate.objects.get(currency_name='Russian rouble')
 
     if request.method == 'POST':
-
-        print('--------------------------------')
         
         amount = request.POST.get('amount')
         from_currency = request.POST.get('from_currency')
@@ -78,7 +76,7 @@ def SelectRecipient(request, transaction_id):
                 )
                 if phone_number:
                     russian_account_receipient.phone_number = phone_number,
-                else:
+                if card_number:
                     russian_account_receipient.card_number = card_number
                 russian_account_receipient.save()
 
@@ -202,7 +200,8 @@ def ChangeTransactionAmount(request, transaction_id):
     context = {
         "naira": naira.rate,
         "rouble": rouble.rate,
-        "transaction": get_transaction
+        "transaction": get_transaction,
+        "naira_min": 100*rouble.rate
     }
 
     return render(request,"edit_transaction_amount.html", context)
@@ -245,7 +244,7 @@ def SuccessPayment(request, transaction_id):
 @login_required
 def Transactions(request):
 
-    get_transactions = Transaction.objects.filter(user=request.user)
+    get_transactions = Transaction.objects.filter(user=request.user).order_by('-date')
 
     context = { 
         "transactions": get_transactions

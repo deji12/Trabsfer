@@ -48,6 +48,10 @@
                   <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Name:</p>
                   <p class="col-sm-7 text-3">{{transaction.receipient.account_name}}</p>
                 </div>
+                <div class="row gx-3 align-items-center">
+                  <p class="col-sm-5 opacity-7 text-sm-end mb-0">Bank Name:</p>
+                  <p class="col-sm-7 text-3 mb-0">{{transaction.receipient.bank_name}}</p>
+                </div>
                 {% if transaction.to_currency == 'Nigerian naira' %}
                 <div class="row gx-3 align-items-center">
                   <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Number:</p>
@@ -70,16 +74,12 @@
                   {% endif %}
 
                 {% endif %}
-                <div class="row gx-3 align-items-center">
-                  <p class="col-sm-5 opacity-7 text-sm-end mb-0">Bank Name:</p>
-                  <p class="col-sm-7 text-3 mb-0">{{transaction.receipient.bank_name}}</p>
-                </div>
               </div>
 
               <form id="editReceipient" method="POST" style="display: none;">
                 {% csrf_token %}
                 <hr class="mx-n3 mx-sm-n5 mb-4">
-                <h3 class="text-5 fw-400 mb-4">Edit Reciepient Details <a href="#" style="float: right;" id="cancel_receipient_edit">Cancle</a></h3>
+                <h3 class="text-5 fw-400 mb-4">Edit Reciepient Details <a href="#" style="float: right;" id="cancel_receipient_edit">Cancel</a></h3>
                 {% csrf_token %}
                 <div class="mb-3">
                   <label for="fullName" class="form-label">Account Name</label>
@@ -112,10 +112,10 @@
               <hr class="mx-n3 mx-sm-n5 mb-4">
               <h3 class="text-5 fw-400 mb-4">Amount Details <a href="{% url 'edit-transaction-amount' transaction.transaction_id %}" style="float: right; font-size: small;">Edit Amount</a></h3>
               <hr class="mx-n3 mx-sm-n5 mb-4">
-              <p class="mb-1">Payment Amount <span class="text-3 float-end">{{transaction.amount|intcomma}} {% if transaction.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
-              <p class="mb-1">Receipient Receives <span class="text-3 float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
+              <p class="mb-1">Payment Amount <span class="text-3 float-end">{{transaction.amount|intcomma}} {% if transaction.from_currency == 'Russian rouble' %} ₽ {% else %} ₦ {% endif %}</span></p>
+              <p class="mb-1">Receipient Receives <span class="text-3 float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} ₦ {% endif %}</span></p>
               <hr>
-              <p class="text-4 fw-500">Total<span class="float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
+              <p class="text-4 fw-500">Total<span class="float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} ₦ {% endif %}</span></p>
               <a href="#"><div class="d-grid"><button id="confirm_btn" class="btn btn-primary">Confirm</button></div></a>
             
             <!-- Deposit Money Confirm end --> 
@@ -136,7 +136,7 @@
               
               <div class="alert alert-info shadow-sm py-3 px-4 px-sm-2 mb-5">
             
-                {% if transaction.to_currency == 'Nigerian naira' %}
+                {% if transaction.to_currency == 'Russian rouble' %}
                   <div class="row gx-3 align-items-center">
                     <p class="col-sm-5 opacity-7 text-sm-end mb-0 mb-sm-3">Account Name:</p>
                     <p class="col-sm-7 text-3">{{site_information.nigerian_bank_account_holder_name}}</p>
@@ -180,10 +180,10 @@
               <hr class="mx-n3 mx-sm-n5 mb-4">
               <h3 class="text-5 fw-400 mb-4">Amount Details</h3>
               <hr class="mx-n3 mx-sm-n5 mb-4">
-              <p class="mb-1">Payment Amount <span class="text-3 float-end">{{transaction.amount|intcomma}} {% if transaction.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
-              <p class="mb-1">Receipient Receives <span class="text-3 float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
+              <p class="mb-1">Payment Amount <span class="text-3 float-end">{{transaction.amount|intcomma}} {% if transaction.from_currency == 'Russian rouble' %} ₽ {% else %} ₦ {% endif %}</span></p>
+              <p class="mb-1">Receipient Receives <span class="text-3 float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} ₦ {% endif %}</span></p>
               <hr>
-              <p class="text-4 fw-500">Total<span class="float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}</span></p>
+              <p class="text-4 fw-500">Total<span class="float-end">{{transaction.converted_amount|intcomma}} {% if transaction.to_currency == 'Russian rouble' %} ₽ {% else %} ₦ {% endif %}</span></p>
               <div class="d-grid"><button onclick="window.location.href = '{% url 'mark-transaction-successful' transaction.transaction_id %}' " id="confirm_btn" class="btn btn-primary">I have paid</button></div>
             
             <!-- Deposit Money Confirm end --> 

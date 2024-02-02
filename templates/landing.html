@@ -29,7 +29,7 @@
                     <label for="youSend" class="form-label"><b>You Send</b></label>
                     <div class="input-group">
                       <span class="input-group-text" id="send_symbol" style="max-width: 40px;"></span>
-                      <input type="number" class="form-control" data-bv-field="youSend" name="amount" id="youSend" value="100" min="100" oninput="convertCurrency()" required placeholder="">
+                      <input type="number" class="form-control" data-bv-field="youSend" name="amount" id="youSend" value="100" step="any" oninput="convertCurrency()" required placeholder="">
                       <span class="input-group-text p-0">
                         <select id="youSendCurrency" data-style="form-select bg-transparent border-0" name="from_currency" data-container="body" data-live-search="true" onchange="convertCurrency()" class="selectpicker form-control bg-transparent" required>
                           <optgroup label="Popular Currency" hidden>
@@ -99,7 +99,7 @@
                     <label for="recipientGets" class="form-label"><b>Recipient Gets</b></label>
                     <div class="input-group">
                       <span class="input-group-text" id="receive_symbol" style="max-width: 40px !important;"></span>
-                      <input type="number" class="form-control" data-bv-field="recipientGets" name="converted_amount" id="recipientGets" min="{{naira_min}}" required  placeholder="">
+                      <input type="number" class="form-control" data-bv-field="recipientGets" name="converted_amount" id="recipientGets" step="any" required  placeholder="">
                       <span class="input-group-text p-0">
                         <select id="recipientCurrency" data-style="form-select bg-transparent border-0" name="to_currency" data-container="body" onchange="convertCurrency()" data-live-search="true" class="selectpicker form-control bg-transparent" required>
                           <optgroup label="Popular Currency" hidden>
@@ -417,6 +417,14 @@
       const equivalentAmount = parseFloat(equivalentAmountSpan.value.replace(/,/g, '')) || 0;
       const fromCurrency = fromCurrencySelect.value;
       const toCurrency = toCurrencySelect.value;
+
+      if(get_currency_symbol(fromCurrency) === "₽" ) {
+          amountInput.min = "100";
+          equivalentAmountSpan.min = "{{naira_min}}";
+        } else {
+          amountInput.min = "{{naira_min}}";
+          equivalentAmountSpan.min = "100";
+        }
 
       if (fromCurrency && toCurrency) {
           const youSendAmount = (equivalentAmount / customRates[fromCurrency]).toFixed(2);
