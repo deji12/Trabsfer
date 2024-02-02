@@ -8,6 +8,9 @@ run:
 run in background:
     gunicorn --bind 0.0.0.0:8000 project_name.wsgi:application > gunicorn.log 2>&1 &
 
+    nohup gunicorn --bind 0.0.0.0:8000 YourProject.wsgi > gunicorn.log 2>&1 &
+
+
 kill gunicorn process running presently in terminal:
     pkill gunicorn
 
