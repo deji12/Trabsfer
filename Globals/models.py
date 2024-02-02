@@ -69,7 +69,7 @@ class SiteInformation(models.Model):
     contact_email = models.EmailField(blank=True, null=True)
     contact_number = models.CharField(max_length=225, blank=True, null=True)
     footer_message = models.TextField(blank=True, null=True)
-    contact_page_message = models.TextField(blank=True, null=True)
+    contact_page_message = models.TextField(blank=True, null=True, help_text="Can be ignored")
 
 class Testimonial(models.Model):
 

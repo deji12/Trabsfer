@@ -26,7 +26,7 @@
                   {% csrf_token %}
       
                   <div class="mb-3">
-                    <label for="youSend" class="form-label">You Send</label>
+                    <label for="youSend" class="form-label"><b>You Send</b></label>
                     <div class="input-group">
                       <span class="input-group-text" id="send_symbol" style="max-width: 40px;"></span>
                       <input type="number" class="form-control" data-bv-field="youSend" name="amount" id="youSend" value="100" min="100" oninput="convertCurrency()" required placeholder="">
@@ -96,10 +96,10 @@
                   </div>
     
                   <div class="mb-3">
-                    <label for="recipientGets" class="form-label">Recipient Gets</label>
+                    <label for="recipientGets" class="form-label"><b>Recipient Gets</b></label>
                     <div class="input-group">
                       <span class="input-group-text" id="receive_symbol" style="max-width: 40px !important;"></span>
-                      <input type="text" disabled class="form-control" data-bv-field="recipientGets" name="converted_amount" value=0.0 id="recipientGets" required  placeholder="">
+                      <input type="number" class="form-control" data-bv-field="recipientGets" name="converted_amount" id="recipientGets" min="{{naira_min}}" required  placeholder="">
                       <span class="input-group-text p-0">
                         <select id="recipientCurrency" data-style="form-select bg-transparent border-0" name="to_currency" data-container="body" onchange="convertCurrency()" data-live-search="true" class="selectpicker form-control bg-transparent" required>
                           <optgroup label="Popular Currency" hidden>
@@ -164,15 +164,15 @@
                         </span>
                     </div>
                   </div>
-                  <p class="text-muted text-center" id="current_rate"></p>
+                  <p class="text-muted text-center"><b id="current_rate"></b></p>
                  
                   <!-- <hr>
                   <p>Total Fees<span class="float-end">7.21 USD</span></p> -->
                   <hr>
-                  <p class="text-4 fw-500">Total To Pay<span class="float-end" id="total_pay"></span><span class="float-end">&nbsp;</span></p>
+                  <p class="text-4 fw-500">Total To Pay<span class="float-end"><b id="total_pay"></b></span><span class="float-end">&nbsp;</span></p>
                   <div class="d-grid"><button type="submit" class="btn btn-primary">Continue</button></div>
                   <hr>
-                  <p class="text-muted text-center">Your money will arrive in 5 to 10 minutes</p>
+                  <p class="text-muted text-center"><b>Your money will arrive in 5 to 10 minutes</b></p>
                 </form>
               </div>
             </div>
@@ -405,6 +405,44 @@
     }
   }
 
+  function updateYouSendAmount() {
+      const equivalentAmountSpan = document.getElementById('recipientGets');
+      const amountInput = document.getElementById('youSend');
+      const fromCurrencySelect = document.getElementById('youSendCurrency');
+      const toCurrencySelect = document.getElementById('recipientCurrency');
+      const currentRate = document.getElementById('current_rate');
+      const totalPay = document.getElementById('total_pay');
+
+      const equivalentAmount = parseFloat(equivalentAmountSpan.value.replace(/,/g, '')) || 0;
+      const fromCurrency = fromCurrencySelect.value;
+      const toCurrency = toCurrencySelect.value;
+
+      if (fromCurrency && toCurrency) {
+          const youSendAmount = (equivalentAmount / customRates[fromCurrency]).toFixed(2);
+
+          // Remove commas from the parsed youSendAmount
+          const amountWithoutCommas = youSendAmount.replace(/,/g, '');
+
+          // Format the amount for display
+          const formattedAmount = parseFloat(amountWithoutCommas)
+
+          // Set the value in the You Send input
+          amountInput.value = formattedAmount;
+
+          const formattedAmount_ = parseFloat(amountWithoutCommas).toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+          });
+
+          // Update the totalPay element
+          totalPay.innerHTML = `${get_currency_symbol(fromCurrency)} ${formattedAmount_}`;
+      }
+  }
+
+  const recipientGetsInput = document.getElementById('recipientGets');
+  recipientGetsInput.addEventListener('input', updateYouSendAmount);
+
+
   function convertCurrency() {
       const amountInput = document.getElementById('youSend');
       const fromCurrencySelect = document.getElementById('youSendCurrency');
@@ -441,7 +479,7 @@
                   maximumFractionDigits: 10
               });
 
-              equivalentAmountSpan.value = formattedEquivalentAmount;  
+              equivalentAmountSpan.value = equivalentAmount;  
               totalPay.innerHTML = `${get_currency_symbol(fromCurrency)} ${formattedAmount}`;
           }
 

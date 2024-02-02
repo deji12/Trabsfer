@@ -27,11 +27,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p35kktr=c&jz$5^o9e5hxlg&oi=ax#b9#aq=^#ejp0e&9fmd*h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 CSRF_TRUSTED_ORIGINS = ['https://succyloglobalfx.com']
 
-ALLOWED_HOSTS = ['succyloglobalfx.com', '162.254.35.54']
+# ALLOWED_HOSTS = ['succyloglobalfx.com', '162.254.35.54']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -101,6 +102,19 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mysql.connector.django',
+#         'NAME': 'succylog_newDb',
+#         'USER': 'succylog_admin',
+#         'PASSWORD': 'succyloglobalfx2024',
+#         'HOST': '50.87.151.187',  # Set to your MySQL server's hostname or IP address
+#         'PORT': '3306',       # Set to your MySQL server's port (default is 3306)
+#         'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'" ,"use_pure": True},
+#     }
+# }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -158,7 +172,7 @@ EMAIL_HOST_USER = 'succylofx@gmail.com'
 EMAIL_HOST_PASSWORD = 'ikkp sjne olce rwdi'
 
 # PLATFORM_EMAIL_RECEIVER = 'succylofx@gmail.com'
-PLATFORM_EMAIL_RECEIVER = 'succylofx@proton.me'
+PLATFORM_EMAIL_RECEIVER = 'succylo@proton.me'
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dukhvwpx8',

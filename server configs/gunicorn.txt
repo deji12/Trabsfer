@@ -15,3 +15,7 @@ kill process running in background:
 
     [returns an id] => pgrep -f "gunicorn --bind 0.0.0.0:8000 project_name.wsgi:application"
     kill <id>
+
+db & admin dashboard:
+admin
+succyloglobalfx2024

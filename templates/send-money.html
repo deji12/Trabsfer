@@ -11,19 +11,19 @@
         <div class="col-lg-11 mx-auto">
           <div class="row widget-steps">
             <div class="col-4 step active">
-              <div class="step-name">Details</div>
+              <div class="step-name"><b>Details</b></div>
               <div class="progress">
                 <div class="progress-bar"></div>
               </div>
               <a href="#" class="step-dot"></a> </div>
             <div class="col-4 step disabled">
-              <div class="step-name">Confirm</div>
+              <div class="step-name"><b>Confirm</b></div>
               <div class="progress">
                 <div class="progress-bar"></div>
               </div>
               <a href="#" class="step-dot"></a> </div>
             <div class="col-4 step disabled">
-              <div class="step-name">Success</div>
+              <div class="step-name"><b>Success</b></div>
               <div class="progress">
                 <div class="progress-bar"></div>
               </div>
@@ -37,7 +37,7 @@
         }
       </style>
       <h2 class="fw-400 text-center mt-3">Send Money</h2>
-      <p class="lead text-center mb-4">Send your money on anytime, anywhere in the world.</p>
+      <p class="lead text-center mb-4"><b>Send your money on anytime, anywhere in the world.</b></p>
       <div class="row">
         <div class="col-md-9 col-lg-7 col-xl-6 mx-auto">
           <div class="bg-white shadow-sm rounded p-3 pt-sm-4 pb-sm-5 px-sm-5 mb-4">
@@ -49,7 +49,7 @@
               {% csrf_token %}
   
               <div class="mb-3">
-                <label for="youSend" class="form-label">You Send</label>
+                <label for="youSend" class="form-label"><b>You Send</b></label>
                 <div class="input-group">
                   <span class="input-group-text" id="send_symbol"></span>
                   <input type="number" class="form-control" data-bv-field="youSend" name="amount" id="youSend" value="100" min="100" oninput="convertCurrency()" required placeholder="">
@@ -119,10 +119,10 @@
               </div>
 
               <div class="mb-3">
-                <label for="recipientGets" class="form-label">Recipient Gets</label>
+                <label for="recipientGets" class="form-label"><B>Recipient Gets</B></label>
                 <div class="input-group">
                   <span class="input-group-text" id="receive_symbol"></span>
-                  <input type="text" disabled class="form-control" data-bv-field="recipientGets" name="converted_amount" id="recipientGets" required  placeholder="">
+                  <input type="number" class="form-control" data-bv-field="recipientGets" name="converted_amount" id="recipientGets" required min="{{naira_min}}  placeholder="">
                   <span class="input-group-text p-0">
                     <select id="recipientCurrency" data-style="form-select bg-transparent border-0" name="to_currency" data-container="body" onchange="convertCurrency()" data-live-search="true" class="selectpicker form-control bg-transparent" required>
                       <optgroup label="Popular Currency" hidden>
@@ -187,14 +187,14 @@
                     </span>
                 </div>
               </div>
-              <p class="text-muted text-center" id="current_rate"></p>
+              <p class="text-muted text-center"><b id="current_rate"></b></p>
               <!-- <hr>
               <p>Total Fees<span class="float-end">7.21 USD</span></p> -->
               <hr>
-              <p class="text-4 fw-500">Total To Pay<span class="float-end" id="total_pay"></span><span class="float-end">&nbsp;</span></p>
+              <p class="text-4 fw-500">Total To Pay<span class="float-end"><b id="total_pay"></b></span><span class="float-end">&nbsp;</span></p>
               <div class="d-grid"><button type="submit" class="btn btn-primary">Continue</button></div>
               <hr>
-              <p class="text-muted text-center">Your money will arrive in 5 to 10 minutes</p>
+              <p class="text-muted text-center"><b>Your money will arrive in 5 to 10 minutes</b></p>
             </form>
             <!-- Send Money Form end --> 
           </div>
@@ -211,7 +211,7 @@
         "Russian rouble": {{ rouble }},
         // Add more rates as needed
     };
-
+  
     function get_currency_symbol(currency){
       if(currency == "Russian rouble"){
         return "₽";
@@ -219,7 +219,45 @@
         return "₦";
       }
     }
-
+  
+    function updateYouSendAmount() {
+        const equivalentAmountSpan = document.getElementById('recipientGets');
+        const amountInput = document.getElementById('youSend');
+        const fromCurrencySelect = document.getElementById('youSendCurrency');
+        const toCurrencySelect = document.getElementById('recipientCurrency');
+        const currentRate = document.getElementById('current_rate');
+        const totalPay = document.getElementById('total_pay');
+  
+        const equivalentAmount = parseFloat(equivalentAmountSpan.value.replace(/,/g, '')) || 0;
+        const fromCurrency = fromCurrencySelect.value;
+        const toCurrency = toCurrencySelect.value;
+  
+        if (fromCurrency && toCurrency) {
+            const youSendAmount = (equivalentAmount / customRates[fromCurrency]).toFixed(2);
+  
+            // Remove commas from the parsed youSendAmount
+            const amountWithoutCommas = youSendAmount.replace(/,/g, '');
+  
+            // Format the amount for display
+            const formattedAmount = parseFloat(amountWithoutCommas)
+  
+            // Set the value in the You Send input
+            amountInput.value = formattedAmount;
+  
+            const formattedAmount_ = parseFloat(amountWithoutCommas).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+  
+            // Update the totalPay element
+            totalPay.innerHTML = `${get_currency_symbol(fromCurrency)} ${formattedAmount_}`;
+        }
+    }
+  
+    const recipientGetsInput = document.getElementById('recipientGets');
+    recipientGetsInput.addEventListener('input', updateYouSendAmount);
+  
+  
     function convertCurrency() {
         const amountInput = document.getElementById('youSend');
         const fromCurrencySelect = document.getElementById('youSendCurrency');
@@ -227,16 +265,16 @@
         const equivalentAmountSpan = document.getElementById('recipientGets');
         const currentRate = document.getElementById('current_rate');
         const totalPay = document.getElementById('total_pay');
-
+  
         const amount = parseFloat(amountInput.value.replace(/,/g, '')) || 0;
         const formattedAmount = amount.toLocaleString();
-
+  
         const fromCurrency = fromCurrencySelect.value;
         const toCurrency = toCurrencySelect.value;
-
+  
         document.getElementById('send_symbol').innerHTML = get_currency_symbol(fromCurrency);
         document.getElementById('receive_symbol').innerHTML = get_currency_symbol(toCurrency)
-
+  
         // Check if both "from" and "to" currencies are selected
         if (fromCurrency && toCurrency) {
             // Check if the user selected the same currency for both "from" and "to"
@@ -249,37 +287,37 @@
             } else {
                 // Calculate equivalent amount using custom rates
                 const equivalentAmount = (amount * customRates[fromCurrency]).toFixed(2);
-
+  
                 const amountWithoutCommas = equivalentAmount.replace(/,/g, '');
                 const formattedEquivalentAmount = parseFloat(amountWithoutCommas).toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 10
                 });
-
-                equivalentAmountSpan.value = formattedEquivalentAmount;  
+  
+                equivalentAmountSpan.value = equivalentAmount;  
                 totalPay.innerHTML = `${get_currency_symbol(fromCurrency)} ${formattedAmount}`;
             }
-
+  
             // Update the UI
             currentRate.innerHTML = `The current exchange rate is 1 ${get_currency_symbol(fromCurrency)} = ${customRates[fromCurrency]} ${get_currency_symbol(toCurrency)}`;
         }
     }
-
-
+  
+  
       const form = document.getElementById('form-send-money');  // Assuming your form has the ID 'form-send-money'
       form.addEventListener('submit', function (event) {
         event.preventDefault();
-
+  
         const amountInput = document.getElementById('youSend');
         const fromCurrencySelect = document.getElementById('youSendCurrency');
         const toCurrencySelect = document.getElementById('recipientCurrency');
         const equivalentAmountSpan = document.getElementById('recipientGets');
         const currentRate = document.getElementById('current_rate');
-
+  
         const amount = parseFloat(amountInput.value) || 0;
         const fromCurrency = fromCurrencySelect.value;
         const toCurrency = toCurrencySelect.value;
-
+  
         // Additional check to ensure the user has filled out the form
         if (!amount || !fromCurrency || !toCurrency) {
             // Display an error message or prevent form submission
@@ -289,16 +327,16 @@
             alert('Please select different currencies for "From" and "To".');
         } else {
             // Your further logic here, e.g., calculating equivalent amount, updating UI, etc.
-            form.submit();
+            //form.submit();
+            window.location.href = "{% url 'dashboard' %}"
         }
     });
-
-
-    // Use window.onload event
+  
+  
     window.onload = function() {
-        convertCurrency();
-    };
-
+          convertCurrency();
+      };
+  
   </script>
   
   <!-- Footer

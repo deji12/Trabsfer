@@ -30,6 +30,7 @@ def Home(request):
 
     context = {
         "naira": naira.rate,
+        "naira_min": 100*rouble.rate,
         "rouble": rouble.rate,
     }
 
