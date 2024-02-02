@@ -26,6 +26,15 @@ def register(request):
             messages.error(request, "Email already in use")
             return redirect('register')
         
+        email_message = EmailMessage (
+            'Account Created: Succyloglobalfx', # email subject
+            f"Welcome to Succyloglobalfx! Your account has been created successfully.\n\nDate: {datetime.datetime.now()}", # email content
+            settings.EMAIL_HOST_USER, # email sender
+            [email] # recipients
+        )
+        email_message.fail_silently = True
+        email_message.send()
+        
         new_user = User.objects.create_user(
             username = f"{firstname}_{lastname}",
             first_name = firstname,
