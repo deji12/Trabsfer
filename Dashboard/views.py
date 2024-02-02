@@ -13,6 +13,8 @@ def Home(request):
     rouble = Rate.objects.get(currency_name='Russian rouble')
 
     if request.method == 'POST':
+
+        print('--------------------------------')
         
         amount = request.POST.get('amount')
         from_currency = request.POST.get('from_currency')
