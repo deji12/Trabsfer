@@ -2,7 +2,7 @@ asgiref==3.7.2
 certifi==2023.11.17
 charset-normalizer==3.3.2
 cloudinary==1.38.0
-Django
+Django==5.0.1
 django-ckeditor==6.7.0
 django-ckeditor-youtube-plugin==0.0.1
 django-cloudinary-storage==0.3.0
@@ -10,8 +10,10 @@ django-jazzmin==2.6.0
 django-js-asset==2.2.0
 gunicorn==21.2.0
 idna==3.6
+mysql-connector-python==8.3.0
 packaging==23.2
 pdfkit==1.0.0
+PyMySQL==1.1.0
 requests==2.31.0
 setuptools==69.0.3
 six==1.16.0
