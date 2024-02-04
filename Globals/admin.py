@@ -7,6 +7,7 @@ class RateAdmin(admin.ModelAdmin):
 admin.site.register(Rate, RateAdmin)
 
 class TransactionAdmin(admin.ModelAdmin):
+    search_fields = ['transaction_id']
     list_display = ['user', 'receipient', 'from_currency', 'to_currency', 'amount', 'paid', 'has_receipient', 'date']
 
 admin.site.register(Transaction, TransactionAdmin)

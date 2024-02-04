@@ -172,7 +172,7 @@ EMAIL_HOST_USER = 'succylofx@gmail.com'
 EMAIL_HOST_PASSWORD = 'ikkp sjne olce rwdi'
 
 # PLATFORM_EMAIL_RECEIVER = 'succylofx@gmail.com'
-PLATFORM_EMAIL_RECEIVER = 'succylo@proton.me'
+PLATFORM_EMAIL_RECEIVER = 'Succylo@mail.ru'
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dukhvwpx8',
