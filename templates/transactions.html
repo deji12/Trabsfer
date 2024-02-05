@@ -36,7 +36,7 @@
             =============================== -->
             <div class="transaction-list">
               {% for i in transactions %}
-              <div class="transaction-item px-4 py-3" data-bs-toggle="modal" data-bs-target="#transaction-detail" onclick='showDetails("{{i.amount|intcomma}}", "{% if i.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}", "{{i.current_exchange_rate}}", "{{i.converted_amount|intcomma}}", "{% if i.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}", "{{i.transaction_id}}", "{{i.receipient.user.get_full_name}}", "{{i.receipient.bank_name}}", "{{i.paid}}", "{{i.date}}", delete_url="{% url 'delete-transaction' i.transaction_id %}")'>
+                <div class="transaction-item px-4 py-3" data-bs-toggle="modal" data-bs-target="#transaction-detail" onclick='showDetails("{{i.amount|intcomma}}", "{% if i.from_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}", "{{i.current_exchange_rate}}", "{{i.converted_amount|intcomma}}", "{% if i.to_currency == 'Russian rouble' %} ₽ {% else %} NGN {% endif %}", "{{i.transaction_id}}", "{{i.receipient.user.get_full_name}}", "{{i.receipient.bank_name}}", "{{i.paid}}", "{{i.date}}", delete_url="{% url 'delete-transaction' i.transaction_id %}", {% if not i.has_receipient %} select_recipient_url="{% url 'select-recipient' i.transaction_id %}" {% endif %})'>
             
                   <div class="row align-items-center flex-row">
                     <div class="col-2 col-sm-1 text-center"> <span class="d-block text-4 fw-300">{{i.date|date:"F j"}}</span> <span class="d-block text-1 fw-300 text-uppercase">{{i.date|date:"Y"}}</span> </div>
@@ -80,7 +80,8 @@
                         <h5 class="text-5 fw-400 m-3">Transaction Details 
                           <button type="button" class="btn-close text-2 float-end" data-bs-dismiss="modal" aria-label="Close"></button>
                         </h5>
-                        <a class="text-5 fw-400 m-3" href="#" id="delete-url">Delete</a>
+                        
+                        <a class="text-5 fw-400 m-3" href="#" id="select-recipient">Select Recipient</a>
                         <hr>
                         <div class="px-3">
                           <ul class="list-unstyled">
@@ -108,6 +109,7 @@
                             <li class="text-muted" id="status">Completed<span class="text-success text-3 ms-1"><i class="fas fa-check-circle"></i></span></li>
                           </ul>
                         </div>
+                        <a class="text-5 fw-400 m-3" href="#" style="float: right;" id="delete-url">Delete</a>
                       </div>
                     </div>
                   </div>
@@ -147,7 +149,7 @@
 <!-- Styles Switcher End --> 
 
 <script>
-  function showDetails(amount, currency, rate, recipient_amount, to_currency, id, name, bank_name, status, date, delete_url){
+  function showDetails(amount, currency, rate, recipient_amount, to_currency, id, name, bank_name, status, date, deleteUrl, selectRecipientUrl) {
     document.getElementById('payment_amount').innerHTML = `${currency} ${amount}`;
     document.getElementById('rate').innerHTML = `${currency} ${rate}`;
     document.getElementById('recipient_amount').innerHTML = `${to_currency} ${recipient_amount}`;
@@ -155,15 +157,22 @@
     document.getElementById('transaction_id').innerHTML = `${id}`;
     document.getElementById('recipient_name').innerHTML = `${name}`;
     document.getElementById('recipient_bank_name').innerHTML = `${bank_name}`;
-    document.getElementById('delete-url').href = delete_url;
-    if(status == "True"){
-      document.getElementById('status').innerHTML = "Paid";
+    document.getElementById('delete-url').href = deleteUrl;
+    
+    const selectRecipientLink = document.getElementById('select-recipient');
+
+    if (selectRecipientUrl) {
+      selectRecipientLink.style.display = 'block';
+      selectRecipientLink.href = selectRecipientUrl;
     } else {
-      document.getElementById('status').innerHTML = "Pending";
+      selectRecipientLink.style.display = 'none';
     }
+
+    document.getElementById('status').innerHTML = status === 'True' ? 'Paid' : 'Pending';
     document.getElementById('transaction_date').innerHTML = `${date}`;
   }
 </script>
+
 
 <!-- Script --> 
 {% include 'scripts.html' %} 
