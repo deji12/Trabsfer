@@ -46,7 +46,7 @@
                 <label for="emailID" class="form-label">Select Recipient OR <a href="#" id="add_receipient_link">Create Recipient</a></label>
                 <select data-style="form-select bg-transparent" name="selected_recipient" data-container="body" data-live-search="true" class="selectpicker form-control bg-transparent">
                   {% for i in recipients %}
-                    <option value="{{i.account_name}}">{{i.account_name}}</option>
+                    <option value="{{i.id}}">{{i.account_name}}</option>
                   {% endfor %}
                   
                 </select>

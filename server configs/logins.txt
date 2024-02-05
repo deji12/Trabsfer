@@ -10,3 +10,7 @@ ssh:
 
 delete logins:
     ssh-keygen -R ip_address
+
+db & admin dashboard:
+    admin or  succylofx@gmail.com
+    succyloglobalfx2024

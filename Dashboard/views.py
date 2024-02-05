@@ -50,8 +50,8 @@ def SelectRecipient(request, transaction_id):
 
         # selects a receipient
         if selected_recipient:
-            get_receipient_by_account_name = UserRecipient.objects.get(user=request.user, transfer_type=get_transaction.to_currency, account_name=selected_recipient)
-            get_transaction.receipient = get_receipient_by_account_name
+            get_receipient_by_id = UserRecipient.objects.get(user=request.user, transfer_type=get_transaction.to_currency, id=selected_recipient)
+            get_transaction.receipient = get_receipient_by_id
             get_transaction.has_receipient = True
 
             get_transaction.current_exchange_rate = rate.rate
